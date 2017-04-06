@@ -20,14 +20,16 @@ var server = http.createServer(router).listen(80);
 function works(req, res, next) {
     var doi = req.path.replace("/works/", "");
 
-    if ( doi === "" ) {
+    if ( doi === undefined || doi === "" ) {
         next()
     }
 
+    var val = cache.get(doi);
+
     if ( val === undefined ) {
-        CrossRef.work(doi, function(err, i) {
-            cache.set(req.query.doi, i, ttlJitter());
-            res.send(i);
+        CrossRef.work(doi, function(err, obj) {
+            cache.set(doi, obj, ttlJitter());
+            res.send(obj);
         });
     } else {
         res.send(val)
