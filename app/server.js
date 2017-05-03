@@ -28,7 +28,11 @@ function works(req, res, next) {
 
     if ( val === undefined ) {
         CrossRef.work(doi, function(err, obj) {
-            cache.set(doi, obj, ttlJitter());
+
+            // Use the retrieved DOI in the cache, not the requested DOI
+            // as that will be used later on to re query the cache
+            cache.set(obj.DOI, obj, ttlJitter());
+
             res.send(obj);
         });
     } else {
