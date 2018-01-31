@@ -29,11 +29,25 @@ function works(req, res, next) {
     if ( val === undefined ) {
         CrossRef.work(doi, function(err, obj) {
 
+            if ( err != null ) {
+                console.warn("Could not retrieve work from CrossRef. Error: " + err.message);
+                res.send(obj);
+                return 1
+            }
+
+            if ( obj == null ){
+                console.warn("Could not retrieve work from CrossRef. Unknown error.");
+                res.send(obj);
+                return 1
+            }
+
             // Use the retrieved DOI in the cache, not the requested DOI
             // as that will be used later on to re query the cache
             cache.set(obj.DOI, obj, ttlJitter());
 
             res.send(obj);
+
+            return 0
         });
     } else {
         res.send(val)
