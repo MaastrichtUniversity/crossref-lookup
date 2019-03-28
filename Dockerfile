@@ -1,4 +1,4 @@
-FROM node:7.4.0
+FROM node:11.12.0-stretch
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
