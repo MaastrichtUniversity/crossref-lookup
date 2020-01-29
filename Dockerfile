@@ -13,4 +13,4 @@ VOLUME ["/usr/src/app"]
 
 EXPOSE 80
 
-CMD /bootstrap.sh
+ENTRYPOINT ["/bootstrap.sh"]

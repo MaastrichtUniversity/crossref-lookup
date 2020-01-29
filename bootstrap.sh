@@ -4,4 +4,4 @@ cd /usr/src/app
 
 npm install 
 
-npm start
+exec npm start
