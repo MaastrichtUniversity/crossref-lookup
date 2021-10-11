@@ -30,7 +30,7 @@ function works(req, res, next) {
         CrossRef.work(doi, function(err, obj) {
 
             if ( err != null ) {
-                console.warn("Could not retrieve work from CrossRef. Error: " + err.message);
+                console.warn("Could not retrieve work from CrossRef. Error: " + sanitizeString(err.message));
                 res.send(obj);
                 return 1
             }
@@ -67,4 +67,9 @@ function ttlJitter() {
     // https://en.wikipedia.org/wiki/Thundering_herd_problem
     // Between 10 and 18 days
     return 60 * 60 * 24 * ( 10 + Math.floor(Math.random() * 8) + 1 )
+}
+
+function sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
 }

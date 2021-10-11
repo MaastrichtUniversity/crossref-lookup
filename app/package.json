@@ -10,6 +10,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "lodash": "^4",
     "crossref": "^1.2.1",
     "node-cache": "^4.1.1",
     "node-router": "^0.1.5"
